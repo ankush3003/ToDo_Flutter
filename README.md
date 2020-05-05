@@ -1,4 +1,4 @@
-# todoapp
+# ToDo App
 
 TODO Notes Application
 
