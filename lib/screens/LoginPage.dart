@@ -6,26 +6,39 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // To Avoid resize distrtion on keyboard open
+  // https://stackoverflow.com/questions/46551268/when-the-keyboard-appears-the-flutter-widgets-resize-how-to-prevent-this
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: SafeArea(
-          child: Stack(
-            children: <Widget>[
-              getLoginCardview(),
-              getPageBottomImage(),
-              getAppIconandLoginText()
-            ],
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: MediaQuery.of(context).size.width,
+            minHeight: MediaQuery.of(context).size.height,
           ),
-        ),
-        decoration: BoxDecoration(
-          gradient: RadialGradient(
-            radius: 1.2,
-            colors: [
-              const Color(0xFF258DC1),
-              const Color(0xFF000000),
-            ],
+          child: IntrinsicHeight(
+            child: Container(
+              child: SafeArea(
+                child: Stack(
+                  children: <Widget>[
+                    getLoginCardview(),
+                    getPageBottomImage(),
+                    getAppIconandLoginText()
+                  ],
+                ),
+              ),
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  radius: 1.2,
+                  colors: [
+                    const Color(0xFF258DC1),
+                    const Color(0xFF000000),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),
