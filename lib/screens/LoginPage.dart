@@ -9,19 +9,71 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: Container(
+      body: Container(
+        child: SafeArea(
           child: Stack(
             children: <Widget>[
               getLoginCardview(),
               getPageBottomImage(),
+              getAppIconandLoginText()
+            ],
+          ),
+        ),
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            radius: 1.2,
+            colors: [
+              const Color(0xFF258DC1),
+              const Color(0xFF000000),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Widget getAppIconandLoginText() {
+  return Container(
+    height: 140,
+    margin: EdgeInsets.all(100.0),
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      gradient: RadialGradient(
+        radius: 0.7,
+        colors: [
+          const Color(0xFF42A5F5),
+          const Color(0xFF0D47A1),
+        ],
+      ),
+    ),
+    child: Column(
+      children: <Widget>[
+        Center(
+            child: Image(
+                width: 80,
+                height: 80,
+                image: AssetImage('images/launcher.png'))),
+        Center(
+          child: Text(
+            "TODO App",
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontFamily: "Poppins",
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        Center(
+          child: Text(
+            "Log In!",
+            style: TextStyle(
+                color: Colors.white, fontSize: 16, fontFamily: "Poppins"),
+          ),
+        ),
+      ],
+    ),
+  );
 }
 
 Widget getPageBottomImage() {
@@ -42,96 +94,69 @@ Widget getPageBottomImage() {
 Widget getLoginCardview() {
   return Center(
     child: Card(
+      elevation: 8.0,
       margin: EdgeInsets.all(24.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.album),
-            title: Text('The Enchanted Nightingale'),
-            subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-          ),
-          ButtonBar(
-            children: <Widget>[
-              FlatButton(
-                child: const Text('BUY TICKETS'),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 40),
+            _getStyledText(
+                txt: "Username", fontSize: 16, fontWeight: FontWeight.normal),
+            _getStyledTextField(
+                hintText: "Enter username", fontSize: 14.0, obscureText: false),
+            SizedBox(height: 20),
+            _getStyledText(
+                txt: "Password", fontSize: 16, fontWeight: FontWeight.normal),
+            _getStyledTextField(
+                hintText: "Enter password", fontSize: 14.0, obscureText: true),
+            SizedBox(height: 20),
+            RaisedButton(
+              onPressed: () {},
+              textColor: Colors.white,
+              padding: const EdgeInsets.all(0.0),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0)), // example 1
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(8.0)), // Example 2
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      Color(0xFF0D47A1),
+                      Color(0xFF1976D2),
+                      Color(0xFF42A5F5),
+                    ],
+                  ),
+                ),
+                padding: const EdgeInsets.all(12),
+                child: Center(
+                    child:
+                        const Text('Log In', style: TextStyle(fontSize: 20))),
               ),
-              FlatButton(
-                child: const Text('LISTEN'),
-              ),
-            ],
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     ),
   );
 }
 
-Widget getLoginCard() {
-  return new Container(
-    width: double.infinity,
-//      height: ScreenUtil.getInstance().setHeight(500),
-    margin: EdgeInsets.only(left: 50.0, right: 50.0),
-    padding: EdgeInsets.only(bottom: 1),
-    decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0.0, 15.0),
-              blurRadius: 15.0),
-          BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0.0, -10.0),
-              blurRadius: 10.0),
-        ]),
-    child: Padding(
-      padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text("Login",
-              style: TextStyle(
-                  fontSize: 45, fontFamily: "Poppins-Bold", letterSpacing: .6)),
-          SizedBox(
-            height: 30,
-          ),
-          Text("Username",
-              style: TextStyle(fontFamily: "Poppins-Medium", fontSize: 26)),
-          TextField(
-            decoration: InputDecoration(
-                hintText: "username",
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Text("PassWord",
-              style: TextStyle(fontFamily: "Poppins-Medium", fontSize: 26)),
-          TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-                hintText: "Password",
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
-          ),
-          SizedBox(
-            height: 35,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Text(
-                "Forgot Password?",
-                style: TextStyle(
-                    color: Colors.blue,
-                    fontFamily: "Poppins-Medium",
-                    fontSize: 28),
-              )
-            ],
-          )
-        ],
-      ),
-    ),
-  );
+Widget _getStyledText({String txt, double fontSize, FontWeight fontWeight}) {
+  return Text(txt,
+      style: TextStyle(
+          fontSize: fontSize, fontFamily: "Poppins", fontWeight: fontWeight));
+}
+
+Widget _getStyledTextField(
+    {String hintText, double fontSize, bool obscureText}) {
+  return TextField(
+      obscureText: obscureText,
+      decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: TextStyle(color: Colors.black, fontSize: fontSize)));
 }
