@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/screens/Dashboard.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -84,13 +85,6 @@ class _LoginPageState extends State<LoginPage> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          /*Center(
-            child: Text(
-              "Log In!",
-              style: TextStyle(
-                  color: Colors.white, fontSize: 16, fontFamily: "Poppins"),
-            ),
-          ),*/
         ],
       ),
     );
@@ -198,6 +192,8 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState.validate()) {
       // If all data are correct then save data to out variables
       _formKey.currentState.save();
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => DashboardPage()));
     } else {
       // If all data are not valid then start auto validation.
       setState(() {});
